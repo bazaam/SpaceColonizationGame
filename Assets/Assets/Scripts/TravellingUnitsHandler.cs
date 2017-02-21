@@ -19,8 +19,8 @@ public class TravellingUnitsHandler : MonoBehaviour
 
 public class UnitBundle
 {
-    private int numberOfUnits = 0;
-    private int owner = 0;
+    private int numberOfUnits;
+    private int owner;
     private GameObject attachedUnitsObject;
 
     public UnitBundle(int unitQuantity, int newOwner, GameObject newUnitsObject)
