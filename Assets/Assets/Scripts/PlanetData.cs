@@ -6,11 +6,13 @@ public class PlanetData : MonoBehaviour
 {
     public GameObject planetOwnershipOverlay;
     public int owner = 0;
+    public string planettype;
     public int startingUnits;
 
     private int type = 0;
     private int numberOfUnits = 0;
 
+    PlanetTypeRegistry planettyperegistry;
     PlayerRegistry players;
 
 	// Use this for initialization
@@ -19,6 +21,8 @@ public class PlanetData : MonoBehaviour
         players = FindObjectOfType<PlayerRegistry>();
         UpdateOwner(owner);
         numberOfUnits = startingUnits;
+        planettyperegistry = FindObjectOfType<PlanetTypeRegistry>();
+        GameObject.GetComponent<SpriteRenderer>().color = planettyperegistry.GetPlanetTypeColor(planettype);
 	}
 	
 	// Update is called once per frame
