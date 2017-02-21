@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlanetData : MonoBehaviour
 {
+    public GameObject planetOwnershipOverlay;
     public int owner = 0;
     public int startingUnits;
 
@@ -64,7 +65,7 @@ public class PlanetData : MonoBehaviour
     {
         if (newOwner != owner)
             owner = newOwner;
-        this.gameObject.GetComponent<SpriteRenderer>().color = players.GetPlayerColor(newOwner);
+        planetOwnershipOverlay.GetComponent<SpriteRenderer>().color = players.GetPlayerColor(newOwner);
 
     }
 }
