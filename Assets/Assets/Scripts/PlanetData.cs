@@ -5,27 +5,23 @@ using UnityEngine;
 public class PlanetData : MonoBehaviour
 {
     public GameObject planetOwnershipOverlay;
-    public int owner = 0;
     public string planetType;
     public int startingUnits;
+    public int populationCap;
 
-    private int type = 0;
     private int numberOfUnits = 0;
+    private GameObject owner;
+    private PlayerData ownerData;
 
     PlanetTypeRegistry planetTypeRegistry;
-    PlayerRegistry players;
 
-	// Use this for initialization
 	void Start()
     {
-        players = FindObjectOfType<PlayerRegistry>();
         planetTypeRegistry = FindObjectOfType<PlanetTypeRegistry>();
-        UpdateOwner(owner);
         numberOfUnits = startingUnits;
         gameObject.GetComponent<SpriteRenderer>().color = planetTypeRegistry.GetPlanetTypeColor(planetType);
 	}
 	
-	// Update is called once per frame
 	void Update()
     {
 		
@@ -34,10 +30,10 @@ public class PlanetData : MonoBehaviour
     public void ReleaseUnits(int quantity)
     {
         numberOfUnits -= quantity;
-        Debug.Log(this.name + " lost " + quantity + " units, and now has " + numberOfUnits + " units.");
+        //Debug.Log(this.name + " lost " + quantity + " units, and now has " + numberOfUnits + " units.");
     }
 
-    public void AddUnits(int quantity, int unitsOwner)
+    public void AddUnits(int quantity, GameObject unitsOwner)
     {
         if (unitsOwner == owner)
             numberOfUnits += quantity;
@@ -60,16 +56,20 @@ public class PlanetData : MonoBehaviour
         return numberOfUnits;
     }
 
-    public int GetOwner()
+    public GameObject GetOwner()
     {
         return owner;
     }
 
-    public void UpdateOwner(int newOwner)
+    public void UpdateOwner(GameObject newOwner)
     {
         if (newOwner != owner)
             owner = newOwner;
-        planetOwnershipOverlay.GetComponent<SpriteRenderer>().color = players.GetPlayerColor(newOwner);
+        planetOwnershipOverlay.GetComponent<SpriteRenderer>().color = PlayerRegistry.instance.GetPlayerColor(newOwner.GetComponent<PlayerData>().playerID);
+    }
 
+    public int GetPopulationCap()
+    {
+        return populationCap;
     }
 }

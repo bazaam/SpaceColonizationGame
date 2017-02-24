@@ -6,7 +6,7 @@ public class TravellingUnit : MonoBehaviour
 {
 
     private int units;
-    private int owner;
+    private GameObject owner;
     private float speed = 0;
     private UnitBundle unitBundle;
     private GameObject target;
@@ -24,7 +24,7 @@ public class TravellingUnit : MonoBehaviour
         transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y), new Vector2(target.transform.position.x, target.transform.position.y), speed * Time.deltaTime);
     }
 
-    public void Initialize(int newUnits, int newOwner, GameObject newTarget, float newSpeed)
+    public void Initialize(int newUnits, GameObject newOwner, GameObject newTarget, float newSpeed)
     {
         units = newUnits;
         owner = newOwner;

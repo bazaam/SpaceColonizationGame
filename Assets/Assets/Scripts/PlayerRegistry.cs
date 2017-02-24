@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRegistry : MonoBehaviour {
-    Dictionary<int, Color32> PlayerColors;
+public class PlayerRegistry
+{
+    public static PlayerRegistry instance = new PlayerRegistry();
+    Dictionary<int, Color32> PlayerColors = new Dictionary<int, Color32>();
 
-	void Awake()
-    {
-        PlayerColors = new Dictionary<int, Color32>();
-        PlayerColors.Add(0, new Color32(97, 97, 97, 255));
-        PlayerColors.Add(1, new Color32(199, 9, 13, 255));
-        PlayerColors.Add(2, new Color32(27, 28, 244, 255));
-    }
 
     public Color32 GetPlayerColor(int player)
     {
         return PlayerColors[player];
     }
 	
+    public void RegisterPlayer(int ID, Color32 color, GameObject startingPlanet)
+    {
+        PlayerColors.Add(ID, color);
+    }
 }

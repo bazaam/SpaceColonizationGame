@@ -20,17 +20,17 @@ public class TravellingUnitsHandler : MonoBehaviour
 public class UnitBundle
 {
     private int numberOfUnits;
-    private int owner;
+    private GameObject owner;
     private GameObject attachedUnitsObject;
 
-    public UnitBundle(int unitQuantity, int newOwner, GameObject newUnitsObject)
+    public UnitBundle(int unitQuantity, GameObject newOwner, GameObject newUnitsObject)
     {
         numberOfUnits = unitQuantity;
         owner = newOwner;
         attachedUnitsObject = newUnitsObject;
     }
 
-    public void SetOwner(int newOwner)
+    public void SetOwner(GameObject newOwner)
     {
         owner = newOwner;
     }
