@@ -19,9 +19,9 @@ public class PlanetData : MonoBehaviour
 	void Start()
     {
         players = FindObjectOfType<PlayerRegistry>();
+        planetTypeRegistry = FindObjectOfType<PlanetTypeRegistry>();
         UpdateOwner(owner);
         numberOfUnits = startingUnits;
-        planetTypeRegistry = FindObjectOfType<PlanetTypeRegistry>();
         gameObject.GetComponent<SpriteRenderer>().color = planetTypeRegistry.GetPlanetTypeColor(planetType);
 	}
 	

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlanetTypeRegistry : MonoBehaviour {
     Dictionary<string, Color32> PlanetTypeColors;
 
-	    void Awake()
+	void Awake()
     {
         PlanetTypeColors = new Dictionary<string, Color32>();
         PlanetTypeColors.Add("Normal", new Color32(97, 97, 97, 255));
@@ -15,8 +15,8 @@ public class PlanetTypeRegistry : MonoBehaviour {
         PlanetTypeColors.Add("City", new Color32(214, 203, 27, 255));
 	}
 	
-	public Color32 GetPlanetTypeColor(string planettype)
+	public Color32 GetPlanetTypeColor(string planetType)
 	{
-        return PlanetTypeColors[planettype];	
+        return PlanetTypeColors[planetType];	
 	}
 }
