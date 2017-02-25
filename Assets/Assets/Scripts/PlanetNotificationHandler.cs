@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlanetParticles : MonoBehaviour
 {
-    private var planetParticles : ParticleSystem;
+    private ParticleSystem planetParticles;
 
-    function Start ()
+    void Start ()
     {
-        planetParticles = GetComponent(ParticleSystem);
+        planetParticles = gameObject.GetComponent<ParticleSystem>();
+    }
+    void PlayParticles()
+    {
         planetParticles.Play();
     }
 }
