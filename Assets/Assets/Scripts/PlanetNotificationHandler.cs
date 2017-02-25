@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlanetParticles : MonoBehaviour
+public class PlanetNotificationHandler : MonoBehaviour
 {
     private ParticleSystem planetParticles;
 
