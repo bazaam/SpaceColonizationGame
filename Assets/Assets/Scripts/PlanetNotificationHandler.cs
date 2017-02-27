@@ -6,12 +6,24 @@ public class PlanetNotificationHandler : MonoBehaviour
 {
     private ParticleSystem planetParticles;
 
-    void Start ()
+    void Start()
     {
         planetParticles = gameObject.GetComponent<ParticleSystem>();
     }
     void PlayParticles()
     {
         planetParticles.Play();
+    }
+    void StopParticles()
+    {
+        planetParticles.Stop();
+    }
+    void OnMouseEnter()
+    {
+        PlayParticles();
+    }
+    void OnMouseExit()
+    {
+        StopParticles();
     }
 }
