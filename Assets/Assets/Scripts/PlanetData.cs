@@ -7,16 +7,46 @@ public class PlanetData : MonoBehaviour
     public GameObject planetOwnershipOverlay;
     public string planetType;
     public int startingUnits;
-    public int populationCap;
+    public int basePopulationCap;
+    private int populationCap;
+
+    public float manualResourceInitializationPrototypeOnly;
+
+    //planet resource values
+    public float Iron { get; private set; }
+    public float Carbon { get; private set; }
+    public float Farm { get; private set; }
+    public float City { get; private set; }
 
     private int numberOfUnits = 0;
     private GameObject owner;
-    private PlayerData ownerData;
 
     PlanetTypeRegistry planetTypeRegistry;
 
 	void Start()
     {
+        //junk resource value initializer -- TEMPORARY REPLACE THIS
+        populationCap = basePopulationCap;
+        if (planetType != null)
+        {
+            if (planetType == "Iron")
+            {
+                Iron = manualResourceInitializationPrototypeOnly;
+            }
+            if (planetType == "Carbon")
+            {
+                Carbon = manualResourceInitializationPrototypeOnly;
+            }
+            if (planetType == "Farm")
+            {
+                Farm = manualResourceInitializationPrototypeOnly;
+            }
+
+            if (planetType == "City")
+            {
+                City = manualResourceInitializationPrototypeOnly;
+            }
+        }
         planetTypeRegistry = FindObjectOfType<PlanetTypeRegistry>();
         numberOfUnits = startingUnits;
         gameObject.GetComponent<SpriteRenderer>().color = planetTypeRegistry.GetPlanetTypeColor(planetType);
@@ -41,9 +71,9 @@ public class PlanetData : MonoBehaviour
         {
             if (quantity > numberOfUnits)
             {
-                owner = unitsOwner;
                 numberOfUnits = (quantity - numberOfUnits);
                 UpdateOwner(unitsOwner);
+                
             }
             else
                 numberOfUnits -= quantity;
@@ -52,7 +82,6 @@ public class PlanetData : MonoBehaviour
 
     public int GetNumberOfUnits()
     {
-        //Debug.Log(this.name + " has " + numberOfUnits + " units currently");
         return numberOfUnits;
     }
 
@@ -64,12 +93,34 @@ public class PlanetData : MonoBehaviour
     public void UpdateOwner(GameObject newOwner)
     {
         if (newOwner != owner)
+        {
+            PlayerData ownerData;
+
+            if (owner != null)
+            {
+                ownerData = owner.GetComponent<PlayerData>();
+                ownerData.UnregisterPlanet(gameObject);
+                ownerData.UpdatePlayerStats();
+                ownerData.UpdatePlanetStats();
+
+            }
             owner = newOwner;
+            ownerData = owner.GetComponent<PlayerData>();
+            ownerData.RegisterPlanet(gameObject);
+            ownerData.UpdatePlayerStats();
+            ownerData.UpdatePlanetStats();
+
+        }
         planetOwnershipOverlay.GetComponent<SpriteRenderer>().color = PlayerRegistry.instance.GetPlayerColor(newOwner.GetComponent<PlayerData>().playerID);
     }
 
     public int GetPopulationCap()
     {
         return populationCap;
+    }
+
+    public void UpdatePlanetStats()
+    {
+        populationCap = (int)Mathf.Round(basePopulationCap * (1 + owner.GetComponent<PlayerData>().PopulationCapModifier));
     }
 }
