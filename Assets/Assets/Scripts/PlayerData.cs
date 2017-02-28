@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    public Color32 playerColor;
-    public int playerID;
+    private Color32 playerColor;
+    public int PlayerID { get; private set; }
     private GameObject startingPlanet;
     private List<GameObject> PlanetsOwned = new List<GameObject>();
 
@@ -14,13 +14,21 @@ public class PlayerData : MonoBehaviour
     public float PopulationGrowthRateModifier { get; private set; }
     public float UnitSpeedModifier { get; private set; }
     public float UnitDefenseModifier { get; private set; }
-    
+
+    private void Awake()
+    {
+        GameSetup.instance.RegisterPlayer(gameObject);
+    }
+
     public void InitializePlayerData(Color32 color, int ID, GameObject planet)
     {
+        Debug.Log("Initializing player with color: " + color + " ID: " + ID + " coordinates: " + planet.transform.position);
         playerColor = color;
-        playerID = ID;
+        PlayerID = ID;
         startingPlanet = planet;
-        PlayerRegistry.instance.RegisterPlayer(playerID, playerColor, startingPlanet);
+        PlayerRegistry.instance.RegisterPlayer(PlayerID, playerColor, startingPlanet);
+        transform.position = new Vector3(planet.transform.position.x, planet.transform.position.y, -10);
+        
     }
 
     public void RegisterPlanet(GameObject planet)
@@ -50,7 +58,7 @@ public class PlayerData : MonoBehaviour
         UnitSpeedModifier = newUnitSpeed;
         UnitDefenseModifier = newDefense;
 
-        Debug.Log("New PopulationCapModifier = " + PopulationCapModifier + " , new PopulationGrowthRateModifier = " + PopulationGrowthRateModifier + " , new UnitSpeedModifier =  " + UnitSpeedModifier + " , new UnitDefenseModifier = " + UnitDefenseModifier);
+        //Debug.Log("New PopulationCapModifier = " + PopulationCapModifier + " , new PopulationGrowthRateModifier = " + PopulationGrowthRateModifier + " , new UnitSpeedModifier =  " + UnitSpeedModifier + " , new UnitDefenseModifier = " + UnitDefenseModifier);
     }
     public void UpdatePlanetStats()
     {

@@ -1,33 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class GameSetup : MonoBehaviour
+public class GameSetup
 {
-    public List<PlayerInitializer> players;
-    
+    public static GameSetup instance = new GameSetup();
 
-    private void Start()
+
+    public void RegisterPlayer(GameObject player)
     {
-        InitializePlayers();
+        JunkDataStorage data = GameObject.FindObjectOfType<JunkDataStorage>();
+        GameObject newPlayerStartingPlanet = data.startingPlanets[0];
+        player.GetComponent<PlayerData>().InitializePlayerData(data.playerColors[0], data.playerIDs[0], newPlayerStartingPlanet);
+        newPlayerStartingPlanet.GetComponent<PlanetData>().UpdateOwner(player);
+
+        data.startingPlanets.RemoveAt(0);
+        data.playerColors.RemoveAt(0);
+        data.playerIDs.RemoveAt(0);
+
+        //GameObject newPlayer = Instantiate(player.playerPrefab, new Vector3(-178, -37, -10), Quaternion.identity);
+        //newPlayer.GetComponent<PlayerData>().InitializePlayerData(player.color, player.id, player.startPlanet);
+        //player.startPlanet.GetComponent<PlanetData>().UpdateOwner(newPlayer);
     }
 
-    private void InitializePlayers()
-    {
-        foreach (PlayerInitializer player in players)
-        {
-            GameObject newPlayer = Instantiate(player.playerPrefab, new Vector3(-178, -37, -10), Quaternion.identity);
-            newPlayer.GetComponent<PlayerData>().InitializePlayerData(player.color, player.id, player.startPlanet);
-            player.startPlanet.GetComponent<PlanetData>().UpdateOwner(newPlayer);
-        }
-    }
-
-}
-[System.Serializable]
-public class PlayerInitializer
-{
-    public GameObject startPlanet;
-    public int id;
-    public Color32 color;
-    public GameObject playerPrefab;
 }

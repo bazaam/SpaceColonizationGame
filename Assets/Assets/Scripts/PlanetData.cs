@@ -117,7 +117,7 @@ public class PlanetData : MonoBehaviour
             ownerData.UpdatePlanetStats();
 
         }
-        planetOwnershipOverlay.GetComponent<SpriteRenderer>().color = PlayerRegistry.instance.GetPlayerColor(newOwner.GetComponent<PlayerData>().playerID);
+        planetOwnershipOverlay.GetComponent<SpriteRenderer>().color = PlayerRegistry.instance.GetPlayerColor(newOwner.GetComponent<PlayerData>().PlayerID);
     }
 
     public int GetPopulationCap()
