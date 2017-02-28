@@ -10,15 +10,16 @@ public class PlanetUnitHandler : MonoBehaviour
     private void Start()
     {
         data = this.GetComponent<PlanetData>();
-        StartCoroutine(MaintainPopulation());
+        StartCoroutine(GrowPopulation());
+        StartCoroutine(DecayPopulation());
     }
 
-    public void SendUnits(GameObject targetPlanet)
+    public void SendUnits(GameObject targetPlanet, GameObject planetOwner)
     {
         int unitsToRelease = (data.GetNumberOfUnits() / 2);
         data.ReleaseUnits(unitsToRelease);
         TravellingUnit units = Instantiate(travellingUnitsPrefab, this.gameObject.transform.position, Quaternion.identity).GetComponent<TravellingUnit>();
-        units.Initialize(unitsToRelease, data.GetOwner(), targetPlanet, 10.0f);
+        units.Initialize(unitsToRelease, data.GetOwner(), targetPlanet, 10.0f * (1 + planetOwner.GetComponent<PlayerData>().UnitSpeedModifier));
     }
 
     private void UpdatePopulation()
@@ -35,13 +36,25 @@ public class PlanetUnitHandler : MonoBehaviour
     }
 
 
-    private IEnumerator MaintainPopulation()
+    private IEnumerator GrowPopulation()
     {
 
         for (;;)
         {
-            UpdatePopulation();
-            yield return new WaitForSeconds(.8f);
+            if (data.GetNumberOfUnits() < data.GetPopulationCap())
+                UpdatePopulation();
+            yield return new WaitForSeconds(0.5f * data.GrowthRate);
         }
     }
+    private IEnumerator DecayPopulation()
+    {
+
+        for (;;)
+        {
+            if (data.GetNumberOfUnits() > data.GetPopulationCap())
+                UpdatePopulation();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
 }

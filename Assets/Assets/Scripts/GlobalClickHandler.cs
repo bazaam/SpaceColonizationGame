@@ -47,7 +47,7 @@ public class GlobalClickHandler : MonoBehaviour
                         if (releaseObject != activePlanet)
                         {
                             PlanetUnitHandler planetUnits = activePlanet.GetComponent<PlanetUnitHandler>();
-                            planetUnits.SendUnits(releaseObject);
+                            planetUnits.SendUnits(releaseObject, gameObject);
                         }
                     }
 

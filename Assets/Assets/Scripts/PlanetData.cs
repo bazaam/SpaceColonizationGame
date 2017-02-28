@@ -8,7 +8,6 @@ public class PlanetData : MonoBehaviour
     public string planetType;
     public int startingUnits;
     public int basePopulationCap;
-    private int populationCap;
 
     public float manualResourceInitializationPrototypeOnly;
 
@@ -17,6 +16,12 @@ public class PlanetData : MonoBehaviour
     public float Carbon { get; private set; }
     public float Farm { get; private set; }
     public float City { get; private set; }
+
+    //planet stat values
+    public float GrowthRate { get; private set; }
+    private int populationCap;
+
+
 
     private int numberOfUnits = 0;
     private GameObject owner;
@@ -27,6 +32,7 @@ public class PlanetData : MonoBehaviour
     {
         //junk resource value initializer -- TEMPORARY REPLACE THIS
         populationCap = basePopulationCap;
+        GrowthRate = 0;
         if (planetType != null)
         {
             if (planetType == "Iron")
@@ -122,5 +128,6 @@ public class PlanetData : MonoBehaviour
     public void UpdatePlanetStats()
     {
         populationCap = (int)Mathf.Round(basePopulationCap * (1 + owner.GetComponent<PlayerData>().PopulationCapModifier));
+        GrowthRate = 1 - owner.GetComponent<PlayerData>().PopulationGrowthRateModifier;
     }
 }
