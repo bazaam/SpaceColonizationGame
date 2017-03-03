@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class TravellingUnit : MonoBehaviour
 {
-
-    private int units;
+    public int NumberOfUnits { get; private set; }
     private GameObject owner;
     private float speed = 0;
     private UnitBundle unitBundle;
     private GameObject target;
     private GameObject spriteObject;
-
     TravellingUnitsHandler UnitsHandler;
-
 
     private void Awake()
     {
@@ -26,24 +23,37 @@ public class TravellingUnit : MonoBehaviour
 
     public void Initialize(int newUnits, GameObject newOwner, GameObject newTarget, float newSpeed)
     {
-        units = newUnits;
+        NumberOfUnits = newUnits;
         owner = newOwner;
         target = newTarget;
         speed = newSpeed;
         gameObject.SetActive(true);
-        unitBundle = new UnitBundle(units, owner, this.gameObject);
+        unitBundle = new UnitBundle(NumberOfUnits, owner, this.gameObject);
         UnitsHandler.RegisterUnitBundle(unitBundle);
-      
-        
+        UpdateText();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == target)
         {
-            target.GetComponent<PlanetData>().AddUnits(units, owner);
+            target.GetComponent<PlanetData>().AddUnits(NumberOfUnits, owner);
             Destroy(gameObject);
         }
     }
 
+    public void DestroyUnits(int unitsToDestroy)
+    {
+        NumberOfUnits -= unitsToDestroy;
+        UpdateText();
+    }
+
+    private void OnDestroy()
+    {
+        UnitsHandler.UnregisterUnitBundle(unitBundle);
+    }
+    private void UpdateText()
+    {
+        GetComponentInChildren<TextMesh>().text = NumberOfUnits.ToString();
+    }
 }

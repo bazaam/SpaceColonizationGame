@@ -21,18 +21,21 @@ public class LocalClickHandler : NetworkBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(playerCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.collider)
+            RaycastHit2D[] hits = Physics2D.RaycastAll(playerCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            foreach (RaycastHit2D hit in hits)
             {
-                GameObject clickedObject = hit.transform.gameObject;
-                if (clickedObject.tag == "planet")
+                if (hit.collider)
                 {
-                    Debug.Log("Clicked on " + clickedObject.name);
-                    PlanetData planet = clickedObject.GetComponent<PlanetData>();
-                    if (planet.GetOwner() == this.gameObject)
+                    GameObject clickedObject = hit.transform.gameObject;
+                    if (clickedObject.tag == "planet")
                     {
-                        isPlanetActive = true;
-                        activePlanet = clickedObject;
+                        Debug.Log("Clicked on " + clickedObject.name);
+                        PlanetData planet = clickedObject.GetComponent<PlanetData>();
+                        if (planet.GetOwner() == this.gameObject)
+                        {
+                            isPlanetActive = true;
+                            activePlanet = clickedObject;
+                        }
                     }
                 }
             }
@@ -42,20 +45,23 @@ public class LocalClickHandler : NetworkBehaviour
         {
             if (isPlanetActive)
             {
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if (hit.collider)
+                RaycastHit2D[] hits = Physics2D.RaycastAll(playerCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                foreach (RaycastHit2D hit in hits)
                 {
-                    GameObject releaseObject = hit.transform.gameObject;
-                    if (releaseObject.tag == "planet")
+                    if (hit.collider)
                     {
-                        PlanetData planet = releaseObject.GetComponent<PlanetData>();
-                        if (releaseObject != activePlanet)
+                        GameObject releaseObject = hit.transform.gameObject;
+                        if (releaseObject.tag == "planet")
                         {
-                            PlanetUnitHandler planetUnits = activePlanet.GetComponent<PlanetUnitHandler>();
-                            planetUnits.SendUnits(releaseObject, gameObject);
+                            PlanetData planet = releaseObject.GetComponent<PlanetData>();
+                            if (releaseObject != activePlanet)
+                            {
+                                PlanetUnitHandler planetUnits = activePlanet.GetComponent<PlanetUnitHandler>();
+                                planetUnits.SendUnits(releaseObject, gameObject);
+                            }
                         }
-                    }
 
+                    }
                 }
             }
             isPlanetActive = false;

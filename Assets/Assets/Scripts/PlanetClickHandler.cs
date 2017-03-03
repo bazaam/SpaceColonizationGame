@@ -8,20 +8,6 @@ public class PlanetClickHandler : MonoBehaviour
     private int planetType = 0;
     private bool isActive = false;
 
-	// Use this for initialization
-	void Start()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update()
-    {
-		
-	}
-
-
-
     private void OnMouseOver()
     {
         //highlight planet
@@ -32,8 +18,4 @@ public class PlanetClickHandler : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
-    {
-        
-    }
 }
