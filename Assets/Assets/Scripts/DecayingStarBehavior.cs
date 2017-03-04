@@ -12,11 +12,11 @@ public class DecayingStarBehavior : MonoBehaviour
     {
         if (collider.tag == "travellingUnit")
         {
+            unitEnteringThisFrame = true;
             if (unitBundlesInArea.Count == 0)
             {
                 StartCoroutine(DestroyPlayerUnits());
             }
-            unitEnteringThisFrame = true;
             unitBundlesInArea.Add(collider.gameObject);
         }
     }

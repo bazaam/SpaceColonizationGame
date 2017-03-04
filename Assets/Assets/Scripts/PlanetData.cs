@@ -32,7 +32,7 @@ public class PlanetData : MonoBehaviour
     {
         //junk resource value initializer -- TEMPORARY REPLACE THIS
         populationCap = basePopulationCap;
-        GrowthRate = 0;
+        GrowthRate = 1;
         if (planetType != null)
         {
             if (planetType == "Iron")
