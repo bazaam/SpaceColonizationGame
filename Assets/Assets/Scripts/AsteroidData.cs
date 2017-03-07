@@ -12,17 +12,6 @@ public class AsteroidData : MonoBehaviour
     private int numberOfUnits = 0;
     private GameObject owner;
 
-    PlanetTypeRegistry planetTypeRegistry;
-
-        void Start()
-    {
-
-    }
-	
-	void Update ()
-    {
-		
-	}
     public void ReleaseUnits(int quantity)
     {
         numberOfUnits -= quantity;

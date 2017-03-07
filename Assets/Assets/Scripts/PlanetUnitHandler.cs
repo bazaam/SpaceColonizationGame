@@ -41,8 +41,14 @@ public class PlanetUnitHandler : MonoBehaviour
 
         for (;;)
         {
+            if (data.planetType == "Asteroid")
+            {
+                yield break;
+            }
             if (data.GetNumberOfUnits() < data.GetPopulationCap())
+            {
                 UpdatePopulation();
+            }
             yield return new WaitForSeconds(0.5f * data.GrowthRate);
         }
     }

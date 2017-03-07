@@ -26,7 +26,7 @@ public class PlanetData : MonoBehaviour
     private int numberOfUnits = 0;
     private GameObject owner;
 
-    PlanetTypeRegistry planetTypeRegistry;
+    // PlanetTypeRegistry planetTypeRegistry;
 
 	void Start()
     {
@@ -53,9 +53,9 @@ public class PlanetData : MonoBehaviour
                 City = manualResourceInitializationPrototypeOnly;
             }
         }
-        planetTypeRegistry = FindObjectOfType<PlanetTypeRegistry>();
+        // planetTypeRegistry = FindObjectOfType<PlanetTypeRegistry>();
         numberOfUnits = startingUnits;
-        gameObject.GetComponent<SpriteRenderer>().color = planetTypeRegistry.GetPlanetTypeColor(planetType);
+        // gameObject.GetComponent<SpriteRenderer>().color = planetTypeRegistry.GetPlanetTypeColor(planetType);
 	}
 	
 	void Update()
