@@ -38,7 +38,6 @@ public class PlanetUnitHandler : MonoBehaviour
 
     private IEnumerator GrowPopulation()
     {
-
         for (;;)
         {
             if (data.planetType == "Asteroid")
@@ -54,7 +53,10 @@ public class PlanetUnitHandler : MonoBehaviour
     }
     private IEnumerator DecayPopulation()
     {
-
+        if (data.planetType == "Asteroid")
+        {
+            yield break;
+        }
         for (;;)
         {
             if (data.GetNumberOfUnits() > data.GetPopulationCap())
