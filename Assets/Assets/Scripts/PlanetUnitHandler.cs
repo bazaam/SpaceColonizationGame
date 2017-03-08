@@ -19,7 +19,7 @@ public class PlanetUnitHandler : MonoBehaviour
         int unitsToRelease = (data.GetNumberOfUnits() / 2);
         data.ReleaseUnits(unitsToRelease);
         TravellingUnit units = Instantiate(travellingUnitsPrefab, this.gameObject.transform.position, Quaternion.identity).GetComponent<TravellingUnit>();
-        units.Initialize(unitsToRelease, data.GetOwner(), targetPlanet, 10.0f * (1 + planetOwner.GetComponent<PlayerData>().UnitSpeedModifier));
+        units.Initialize(unitsToRelease, data.GetOwner(), targetPlanet, 20.0f * (1 + planetOwner.GetComponent<PlayerData>().UnitSpeedModifier));
     }
 
     private void UpdatePopulation()
