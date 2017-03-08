@@ -10,8 +10,6 @@ public class PlanetUnitHandler : MonoBehaviour
     private void Start()
     {
         data = this.GetComponent<PlanetData>();
-        StartCoroutine(GrowPopulation());
-        StartCoroutine(DecayPopulation());
     }
 
     public void SendUnits(GameObject targetPlanet, GameObject planetOwner)
@@ -63,6 +61,11 @@ public class PlanetUnitHandler : MonoBehaviour
                 UpdatePopulation();
             yield return new WaitForSeconds(0.5f);
         }
+    }
+    public void InitiatePlanetPopulationControl()
+    {
+        StartCoroutine(GrowPopulation());
+        StartCoroutine(DecayPopulation());
     }
 
 }

@@ -20,6 +20,7 @@ public class PlanetData : MonoBehaviour
     //planet stat values
     public float GrowthRate { get; private set; }
     private int populationCap;
+    private PlanetUnitHandler myUnits;
 
 
 
@@ -30,6 +31,7 @@ public class PlanetData : MonoBehaviour
 
 	void Start()
     {
+        myUnits = this.GetComponent<PlanetUnitHandler>();
         //junk resource value initializer -- TEMPORARY REPLACE THIS
         populationCap = basePopulationCap;
         GrowthRate = 1;
@@ -98,6 +100,10 @@ public class PlanetData : MonoBehaviour
 
     public void UpdateOwner(GameObject newOwner)
     {
+        if (owner == null)
+        {
+            myUnits.InitiatePlanetPopulationControl();
+        }
         if (newOwner != owner)
         {
             PlayerData ownerData;
