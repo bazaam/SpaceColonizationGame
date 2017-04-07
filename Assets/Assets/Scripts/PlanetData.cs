@@ -30,7 +30,12 @@ public class PlanetData : NetworkBehaviour
 
     // PlanetTypeRegistry planetTypeRegistry;
 
-	void Start()
+    private void Awake()
+    {
+        NetworkServer.Spawn(this.gameObject);
+    }
+
+    void Start()
     {
         myUnits = this.GetComponent<PlanetUnitHandler>();
         //junk resource value initializer -- TEMPORARY REPLACE THIS
