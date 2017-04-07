@@ -32,7 +32,7 @@ public class PlanetData : NetworkBehaviour
 
     private void Awake()
     {
-        NetworkServer.Spawn(this.gameObject);
+        CmdRegisterPlanetToNetwork();
     }
 
     void Start()
@@ -66,11 +66,6 @@ public class PlanetData : NetworkBehaviour
         // gameObject.GetComponent<SpriteRenderer>().color = planetTypeRegistry.GetPlanetTypeColor(planetType);
 	}
 	
-	void Update()
-    {
-		
-	}
-
     public void ReleaseUnits(int quantity)
     {
         numberOfUnits -= quantity;
@@ -141,5 +136,11 @@ public class PlanetData : NetworkBehaviour
     {
         populationCap = (int)Mathf.Round(basePopulationCap * (1 + owner.GetComponent<PlayerData>().PopulationCapModifier));
         GrowthRate = 1 - owner.GetComponent<PlayerData>().PopulationGrowthRateModifier;
+    }
+
+    [Command]
+    void CmdRegisterPlanetToNetwork()
+    {
+        NetworkServer.Spawn(this.gameObject);
     }
 }
