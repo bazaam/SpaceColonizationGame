@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TravellingUnit : MonoBehaviour
+public class TravellingUnit : NetworkBehaviour
 {
     public int NumberOfUnits { get; private set; }
     private GameObject owner;

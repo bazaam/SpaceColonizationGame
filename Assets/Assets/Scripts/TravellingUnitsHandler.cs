@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TravellingUnitsHandler : MonoBehaviour
+public class TravellingUnitsHandler : NetworkBehaviour
 {
     private List<UnitBundle> activeUnitBundles = new List<UnitBundle>();
 

@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlanetTypeRegistry : MonoBehaviour {
+public class PlanetTypeRegistry : NetworkBehaviour
+{
     Dictionary<string, Color32> PlanetTypeColors;
 
 	void Awake()

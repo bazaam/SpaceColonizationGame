@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlanetTextHandler : MonoBehaviour
+public class PlanetTextHandler : NetworkBehaviour
 {
     TextMesh planetText;
     PlanetData planet;
