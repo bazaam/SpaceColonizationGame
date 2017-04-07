@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerData : MonoBehaviour
+public class PlayerData : NetworkBehaviour
 {
     private Color32 playerColor;
     public int PlayerID { get; private set; }
