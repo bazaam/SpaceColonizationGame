@@ -32,7 +32,7 @@ public class PlanetData : NetworkBehaviour
 
     private void Awake()
     {
-        CmdRegisterPlanetToNetwork();
+        NetworkServer.Spawn(this.gameObject);
     }
 
     void Start()
@@ -138,9 +138,5 @@ public class PlanetData : NetworkBehaviour
         GrowthRate = 1 - owner.GetComponent<PlayerData>().PopulationGrowthRateModifier;
     }
 
-    [Command]
-    void CmdRegisterPlanetToNetwork()
-    {
-        NetworkServer.Spawn(this.gameObject);
-    }
+
 }

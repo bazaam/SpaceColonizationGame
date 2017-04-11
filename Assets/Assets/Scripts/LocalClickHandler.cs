@@ -56,8 +56,8 @@ public class LocalClickHandler : NetworkBehaviour
                             PlanetData planet = releaseObject.GetComponent<PlanetData>();
                             if (releaseObject != activePlanet)
                             {
-                                PlanetUnitHandler planetUnits = activePlanet.GetComponent<PlanetUnitHandler>();
-                                planetUnits.SendUnits(releaseObject, gameObject);
+                                //planetUnits.SendUnits(releaseObject, gameObject);
+                                CmdSendUnits(gameObject, activePlanet, releaseObject);
                             }
                         }
 
@@ -66,5 +66,11 @@ public class LocalClickHandler : NetworkBehaviour
             }
             isPlanetActive = false;
         }
+    }
+
+    [Command]
+    void CmdSendUnits(GameObject player, GameObject startingPlanet, GameObject targetPlanet)
+    {
+        startingPlanet.GetComponent<PlanetUnitHandler>().SendUnits(player, targetPlanet);
     }
 }

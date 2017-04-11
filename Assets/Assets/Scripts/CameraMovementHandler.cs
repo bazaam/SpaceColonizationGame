@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class CameraMovementHandler : NetworkBehaviour
 {
@@ -17,20 +18,25 @@ public class CameraMovementHandler : NetworkBehaviour
 
     void Start()
     {
-        cam = gameObject.GetComponentInChildren<Camera>();
-        if (!isLocalPlayer)
-        {
-            cam.enabled = false;
-        }
+        //cam = gameObject.GetComponentInChildren<Camera>();
+        //if (!isLocalPlayer)
+        //{
+        //    cam.enabled = false;
+        //}
         theScreenWidth = Screen.width;
         theScreenHeight = Screen.height;
     }
     void Update()
     {
-        if (!isLocalPlayer)
+        //if (!isLocalPlayer)
+        //{
+        //    return;
+        //}
+        if (SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 1)
         {
             return;
         }
+
         if (isPaused)
         {
         return;
